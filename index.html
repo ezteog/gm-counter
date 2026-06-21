@@ -11,12 +11,20 @@
   <button id="gmButton">GM ☀️</button>
 
   <script>
-    let count = 0;
+    // Carrega o número salvo (ou começa em 0 se não houver nada salvo)
+    let count = Number(localStorage.getItem("gmCount")) || 0;
+
     const countEl = document.getElementById("count");
     const button = document.getElementById("gmButton");
+
+    // Mostra o número salvo assim que a página abre
+    countEl.textContent = count;
+
     button.addEventListener("click", function () {
       count = count + 1;
       countEl.textContent = count;
+      // Salva o novo número na gavetinha do navegador
+      localStorage.setItem("gmCount", count);
     });
   </script>
 </body>
