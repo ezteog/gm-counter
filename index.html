@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GM Counter</title>
+</head>
+<body>
+  <h1>GM Counter ☀️</h1>
+  <p>Você disse GM <span id="count">0</span> vezes</p>
+  <button id="gmButton">GM ☀️</button>
+
+  <script>
+    let count = 0;
+    const countEl = document.getElementById("count");
+    const button = document.getElementById("gmButton");
+    button.addEventListener("click", function () {
+      count = count + 1;
+      countEl.textContent = count;
+    });
+  </script>
+</body>
+</html>
