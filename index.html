@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GM Counter</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
@@ -12,42 +13,46 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: #0f0f0f;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #ffffff;
+      background-color: #05060f;
+      background-image: radial-gradient(circle at 50% 35%, rgba(0,0,255,0.35), transparent 60%);
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       margin-bottom: 0.5rem;
     }
 
     p {
-      font-size: 1.2rem;
-      color: #cccccc;
+      font-size: 1.15rem;
+      color: #aab2d5;
+      margin-top: 0;
     }
 
     #count {
       font-weight: bold;
-      color: #ffffff;
+      color: #4d4dff;
     }
 
     button {
-      margin-top: 1.5rem;
-      padding: 1rem 2.5rem;
+      margin-top: 1.8rem;
+      padding: 1rem 2.8rem;
       font-size: 1.3rem;
       font-weight: bold;
       color: #ffffff;
-      background-color: #333333;
+      background-color: #0000FF;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: transform 0.1s ease, background-color 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0,0,255,0.45);
+      transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
 
     button:hover {
-      background-color: #444444;
+      background-color: #1a1aff;
+      box-shadow: 0 10px 30px rgba(0,0,255,0.6);
     }
 
     button:active {
