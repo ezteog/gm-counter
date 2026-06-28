@@ -1,0 +1,120 @@
+:root {
+  --base-blue: #0000FF;     /* Base Blue (preenchimentos) */
+  --blue-bright: #4d6bff;   /* azul mais claro p/ texto no preto */
+  --black: #0A0B0D;         /* preto Base (alto contraste) */
+  --white: #FFFFFF;
+  --muted: #8b90a6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--white);
+  background-color: var(--black);
+  background-image: radial-gradient(circle at 50% 30%, rgba(0,0,255,0.30), transparent 55%);
+  padding: 1.5rem;
+}
+
+/* Quadrado azul arredondado (inspirado no estilo Base) */
+.logo {
+  width: 72px;
+  height: 72px;
+  background: var(--base-blue);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 8px 30px rgba(0,0,255,0.5);
+}
+.logo .inner {
+  width: 26px;
+  height: 26px;
+  background: var(--white);
+  border-radius: 7px;
+}
+
+h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.3rem;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  margin: 0 0 2rem;
+}
+
+p { font-size: 1.15rem; color: #c3c7d6; margin: 0; }
+
+#count { font-weight: 700; color: var(--blue-bright); }
+
+.streak {
+  font-size: 1.05rem;
+  color: #ffd479;
+  margin-top: 0.6rem;
+}
+#streak { font-weight: 700; }
+
+.last-gm {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+.buttons {
+  margin-top: 1.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+button {
+  padding: 1rem 2.8rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  background-color: var(--base-blue);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,255,0.45);
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+button:hover {
+  background-color: #1a1aff;
+  box-shadow: 0 10px 30px rgba(0,0,255,0.6);
+}
+button:active { transform: scale(0.96); }
+
+.reset {
+  background-color: transparent;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.6rem 1.6rem;
+  border: 1px solid #23252f;
+  box-shadow: none;
+}
+.reset:hover {
+  background-color: rgba(255,255,255,0.04);
+  color: var(--white);
+  box-shadow: none;
+}
+
+footer {
+  margin-top: 2.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
