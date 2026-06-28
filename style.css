@@ -158,6 +158,46 @@ button:active { transform: scale(0.96); }
 .medalha-emoji { font-size: 1.9rem; line-height: 1; }
 .medalha-label { font-size: 0.7rem; color: var(--muted); }
 
+/* Mini-gráfico estilo "contribuições" */
+.grafico-box {
+  margin-top: 2.4rem;
+  width: 100%;
+  max-width: 360px;
+}
+.grafico-titulo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.9rem;
+}
+.grafico {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+}
+.cel {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  background: #161821;
+}
+.cel.nivel-1 { background: rgba(0,0,255,0.35); }
+.cel.nivel-2 { background: rgba(0,0,255,0.55); }
+.cel.nivel-3 { background: rgba(0,0,255,0.78); }
+.cel.nivel-4 { background: #2b4bff; }
+.grafico-legenda {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 0.7rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.grafico-legenda .cel { width: 12px; height: 12px; aspect-ratio: auto; }
+
 /* Histórico dos últimos GMs */
 .historico-box {
   margin-top: 2.4rem;
