@@ -36,6 +36,12 @@
       color: #4d4dff;
     }
 
+    .last-gm {
+      font-size: 0.9rem;
+      color: #6b73a0;
+      margin-top: 0.4rem;
+    }
+
     .buttons {
       margin-top: 1.8rem;
       display: flex;
@@ -66,7 +72,6 @@
       transform: scale(0.96);
     }
 
-    /* Botão de resetar: estilo discreto (secundário) */
     .reset {
       background-color: transparent;
       color: #aab2d5;
@@ -87,6 +92,7 @@
 <body>
   <h1>GM Counter ☀️</h1>
   <p>Você disse GM <span id="count">0</span> vezes</p>
+  <p class="last-gm">Último GM: <span id="lastGm">—</span></p>
 
   <div class="buttons">
     <button id="gmButton">GM ☀️</button>
@@ -94,29 +100,44 @@
   </div>
 
   <script>
-    // Carrega o número salvo (ou começa em 0 se não houver nada salvo)
+    // Carrega os valores salvos (ou usa o padrão se não houver nada)
     let count = Number(localStorage.getItem("gmCount")) || 0;
+    let lastGm = localStorage.getItem("lastGm") || null;
 
     const countEl = document.getElementById("count");
+    const lastGmEl = document.getElementById("lastGm");
     const button = document.getElementById("gmButton");
     const resetButton = document.getElementById("resetButton");
 
-    // Mostra o número salvo assim que a página abre
+    // Mostra os valores salvos assim que a página abre
     countEl.textContent = count;
+    if (lastGm) {
+      lastGmEl.textContent = lastGm;
+    }
 
     button.addEventListener("click", function () {
       count = count + 1;
       countEl.textContent = count;
       localStorage.setItem("gmCount", count);
+
+      // Guarda a data e hora atuais, formatadas em português
+      const agora = new Date();
+      lastGm = agora.toLocaleString("pt-BR");
+      lastGmEl.textContent = lastGm;
+      localStorage.setItem("lastGm", lastGm);
     });
 
-    // Resetar: pede confirmação antes de zerar
     resetButton.addEventListener("click", function () {
       const confirmar = confirm("Tem certeza que deseja zerar o contador?");
       if (confirmar) {
         count = 0;
         countEl.textContent = count;
         localStorage.removeItem("gmCount");
+
+        // Zera também a data do último GM
+        lastGm = null;
+        lastGmEl.textContent = "—";
+        localStorage.removeItem("lastGm");
       }
     });
   </script>
