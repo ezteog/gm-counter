@@ -36,8 +36,15 @@
       color: #4d4dff;
     }
 
-    button {
+    .buttons {
       margin-top: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    button {
       padding: 1rem 2.8rem;
       font-size: 1.3rem;
       font-weight: bold;
@@ -58,12 +65,33 @@
     button:active {
       transform: scale(0.96);
     }
+
+    /* Botão de resetar: estilo discreto (secundário) */
+    .reset {
+      background-color: transparent;
+      color: #aab2d5;
+      font-size: 0.95rem;
+      font-weight: normal;
+      padding: 0.6rem 1.6rem;
+      border: 1px solid #2a2d4a;
+      box-shadow: none;
+    }
+
+    .reset:hover {
+      background-color: rgba(255,255,255,0.05);
+      color: #ffffff;
+      box-shadow: none;
+    }
   </style>
 </head>
 <body>
   <h1>GM Counter ☀️</h1>
   <p>Você disse GM <span id="count">0</span> vezes</p>
-  <button id="gmButton">GM ☀️</button>
+
+  <div class="buttons">
+    <button id="gmButton">GM ☀️</button>
+    <button id="resetButton" class="reset">Resetar</button>
+  </div>
 
   <script>
     // Carrega o número salvo (ou começa em 0 se não houver nada salvo)
@@ -71,6 +99,7 @@
 
     const countEl = document.getElementById("count");
     const button = document.getElementById("gmButton");
+    const resetButton = document.getElementById("resetButton");
 
     // Mostra o número salvo assim que a página abre
     countEl.textContent = count;
@@ -78,8 +107,17 @@
     button.addEventListener("click", function () {
       count = count + 1;
       countEl.textContent = count;
-      // Salva o novo número na gavetinha do navegador
       localStorage.setItem("gmCount", count);
+    });
+
+    // Resetar: pede confirmação antes de zerar
+    resetButton.addEventListener("click", function () {
+      const confirmar = confirm("Tem certeza que deseja zerar o contador?");
+      if (confirmar) {
+        count = 0;
+        countEl.textContent = count;
+        localStorage.removeItem("gmCount");
+      }
     });
   </script>
 </body>
