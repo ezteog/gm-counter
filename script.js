@@ -5,14 +5,26 @@ let streak = Number(localStorage.getItem("streak")) || 0;
 let lastGmDay = localStorage.getItem("lastGmDay") || null;
 let bestStreak = Number(localStorage.getItem("bestStreak")) || 0;
 
+// Histórico dos últimos GMs (leitura segura)
+let historico = [];
+try {
+  historico = JSON.parse(localStorage.getItem("historico") || "[]");
+  if (!Array.isArray(historico)) historico = [];
+} catch (e) {
+  historico = [];
+}
+
 const countEl = document.getElementById("count");
 const lastGmEl = document.getElementById("lastGm");
 const streakEl = document.getElementById("streak");
 const bestEl = document.getElementById("best");
 const medalsEl = document.getElementById("medals");
+const historicoEl = document.getElementById("historico");
 const button = document.getElementById("gmButton");
 const resetButton = document.getElementById("resetButton");
 const shareButton = document.getElementById("shareButton");
+
+const MAX_HISTORICO = 10;
 
 // Medalhas desbloqueadas pelo total de GMs
 const medalhas = [
@@ -40,12 +52,35 @@ function renderMedalhas() {
   });
 }
 
+function renderHistorico() {
+  historicoEl.innerHTML = "";
+  if (historico.length === 0) {
+    const vazio = document.createElement("li");
+    vazio.className = "historico-vazio";
+    vazio.textContent = "Nenhum GM ainda";
+    historicoEl.appendChild(vazio);
+    return;
+  }
+  historico.forEach(function (registro) {
+    const li = document.createElement("li");
+    const icone = document.createElement("span");
+    icone.className = "historico-icone";
+    icone.textContent = "☀️";
+    const data = document.createElement("span");
+    data.textContent = registro;
+    li.appendChild(icone);
+    li.appendChild(data);
+    historicoEl.appendChild(li);
+  });
+}
+
 // Mostra os valores salvos assim que a página abre
 countEl.textContent = count;
 streakEl.textContent = streak;
 bestEl.textContent = bestStreak;
 if (lastGm) { lastGmEl.textContent = lastGm; }
 renderMedalhas();
+renderHistorico();
 
 function diaDeHoje() {
   const hoje = new Date();
@@ -72,6 +107,14 @@ button.addEventListener("click", function () {
   lastGm = agora.toLocaleString("pt-BR");
   lastGmEl.textContent = lastGm;
   localStorage.setItem("lastGm", lastGm);
+
+  // Histórico: adiciona no topo e mantém só os últimos 10
+  historico.unshift(lastGm);
+  if (historico.length > MAX_HISTORICO) {
+    historico = historico.slice(0, MAX_HISTORICO);
+  }
+  localStorage.setItem("historico", JSON.stringify(historico));
+  renderHistorico();
 
   // Streak
   const hoje = diaDeHoje();
@@ -107,13 +150,14 @@ button.addEventListener("click", function () {
 });
 
 resetButton.addEventListener("click", function () {
-  const confirmar = confirm("Tem certeza que deseja zerar tudo? Isso apaga total, sequência, recorde e medalhas.");
+  const confirmar = confirm("Tem certeza que deseja zerar tudo? Isso apaga total, sequência, recorde, medalhas e histórico.");
   if (confirmar) {
     count = 0;
     streak = 0;
     bestStreak = 0;
     lastGm = null;
     lastGmDay = null;
+    historico = [];
 
     countEl.textContent = count;
     streakEl.textContent = streak;
@@ -125,8 +169,10 @@ resetButton.addEventListener("click", function () {
     localStorage.removeItem("bestStreak");
     localStorage.removeItem("lastGm");
     localStorage.removeItem("lastGmDay");
+    localStorage.removeItem("historico");
 
     renderMedalhas();
+    renderHistorico();
   }
 });
 
@@ -136,4 +182,9 @@ shareButton.addEventListener("click", function () {
     navigator.share({ text: texto }).catch(function () {});
   } else {
     navigator.clipboard.writeText(texto).then(function () {
-      alert("Texto
+      alert("Texto copiado! 🟦\n\n" + texto);
+    }).catch(function () {
+      alert(texto);
+    });
+  }
+});
